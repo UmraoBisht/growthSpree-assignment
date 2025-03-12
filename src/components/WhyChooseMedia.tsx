@@ -1,10 +1,10 @@
-import { Minus, Plus } from "lucide-react"
-import { motion } from "framer-motion"
+import { Minus, Plus } from "lucide-react";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import visual1 from "../assets/Components/Visual 1 Library .png";
 import visual2 from "../assets/Components/Visual.png";
 import visual3 from "../assets/Components/Visual 3.png";
 import visual4 from "../assets/Components/Visual 4.png";
-import { useState } from "react";
 
 const data = [
     {
@@ -38,7 +38,28 @@ const data = [
 ];
 
 function WhyChooseMedia() {
-    const [selected, setSelected] = useState(1);
+    const [selected, setSelected] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 1024);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    useEffect(() => {
+        if (!isMobile) {
+            const interval = setInterval(() => {
+                setSelected((prevIndex) => (prevIndex + 1) % data.length);
+            }, 8000);
+            return () => clearInterval(interval);
+        }
+    }, [isMobile]);
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
@@ -49,57 +70,67 @@ function WhyChooseMedia() {
             </div>
 
             <div className="mt-16 lg:mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-                {/* Left column: Features */}
-                <div className="space-y-4">
-                    {/* Accordion Item 1 */}
-
+                {/* Left Column: Accordion List (Expanded in Mobile) */}
+                <div className="space-y-4 w-full">
                     {data.map((item, index) => (
-
-                        <div className={`border border-gray-200 rounded-lg p-6 ${selected === index ? "bg-gray-100" : ""
-                            }`} onClick={() => setSelected(index)}>
+                        <div
+                            key={index}
+                            className={`border border-gray-200 rounded-lg p-6 transition-all duration-300 relative ${!isMobile && selected === index ? "bg-gray-100 shadow-md" : ""
+                                }`}
+                            onClick={() => !isMobile && setSelected(index)}
+                        >
                             <div className="flex justify-between items-center">
-                                <h3 className="font-semibold text-gray-500">
-                                    {item.title}
-                                </h3>
-                                <button className="text-gray-400 hover:text-gray-600">
-                                    {
-                                        selected === index ? <Minus size={20} /> : <Plus size={20} />
-                                    }
-                                </button>
+                                <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                                {!isMobile && (
+                                    <button className="text-gray-400 hover:text-gray-600">
+                                        {selected === index ? <Minus size={20} /> : <Plus size={20} />}
+                                    </button>
+                                )}
                             </div>
-                            {selected === index && (
-                                <div className="pt-2">
-                                    <div className="relative mt-4">
-                                        <p className="text-gray-600 text-sm">
-                                            {item.content}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
 
+                            {/* Content - Always Visible on Mobile */}
+                            <motion.div
+                                className="overflow-hidden"
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: selected === index || isMobile ? "auto" : 0, opacity: selected === index || isMobile ? 1 : 0 }}
+                                transition={{ duration: 0.4 }}
+                            >
+                                <p className="text-gray-600 text-sm mt-2">{item.content}</p>
+
+                                {/* Show Image in Mobile Inside the Card */}
+                                {isMobile && (
+                                    <motion.img
+                                        src={item.image}
+                                        alt="Feature Image"
+                                        className="w-full h-auto max-w-md object-cover rounded-lg shadow-lg mt-4"
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.5 }}
+                                    />
+                                )}
+                            </motion.div>
                         </div>
                     ))}
                 </div>
 
-                {/* Right Side - Image Display */}
-                <div className="rounded-xl p-6 md:p-10">
-                    <div className="relative">
+                {/* Desktop: Auto-Switching Image - Fixed Position */}
+                {!isMobile && (
+                    <div className="rounded-xl p-6 md:p-10 relative h-[450px] flex items-center justify-center">
                         <motion.img
                             key={selected}
                             src={data[selected].image}
                             alt="Selected"
-                            className="w-full h-auto max-w-md object-cover rounded-lg shadow-lg"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            width={600}
-                            height={450}
+                            className="w-full h-auto max-w-md object-cover rounded-lg shadow-lg absolute"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
                             transition={{ duration: 0.5 }}
                         />
                     </div>
-                </div>
+                )}
             </div>
         </div>
-    )
+    );
 }
 
 export default WhyChooseMedia;

@@ -21,22 +21,35 @@ function CustomerSpotlight() {
     const nextRef = useRef<HTMLButtonElement>(null);
 
     return (
-        <div className="py-12">
-            <div className="container mx-auto px-4 overflow-hidden">
-                <div className="relative">
+        <div className="py-16 bg-white text-center">
+            <div className="overflow-hidden ">
+                {/* Title Section */}
+                <h2 className="text-orange-600 text-lg font-bold uppercase">Media+ in action:</h2>
+                <h1 className="text-3xl md:text-4xl font-bold text-black mb-4">Customer Spotlight</h1>
+                <p className="text-gray-600 text-base max-w-2xl mx-auto">
+                    See how customers use Media+ to create branded media sites that captivate and convert.
+                </p>
+
+                <div className="relative mt-10">
                     <Swiper
                         modules={[Navigation, Pagination, EffectCoverflow]}
                         effect="coverflow"
                         loop={true}
                         grabCursor={true}
                         centeredSlides={true}
-                        slidesPerView={1.5}
+                        slidesPerView={1}
+                        breakpoints={{
+                            640: { slidesPerView: 1.2 },
+                            768: { slidesPerView: 1.5 },
+                            1024: { slidesPerView: 1.7 },
+                            1280: { slidesPerView: 2 },
+                        }}
                         coverflowEffect={{
                             rotate: 0,
                             stretch: 0,
-                            depth: 100,
+                            depth: 120,
                             modifier: 2.5,
-                            slideShadows: true,
+                            slideShadows: false,
                         }}
                         pagination={{ clickable: true }}
                         navigation={{
@@ -53,13 +66,13 @@ function CustomerSpotlight() {
                                 }
                             });
                         }}
-                        className="!overflow-visible !pt-12 !pb-16"
+                        className="!overflow-visible !pt-16 !pb-20"
                     >
                         {slides.map((slide, index) => (
-                            <SwiperSlide key={index} className="transition-transform duration-300">
-                                <div className="relative rounded-xl overflow-hidden group">
-                                    <div className="relative aspect-video p-2">
-                                        <img src={slide.image} className="w-full h-full object-cover" />
+                            <SwiperSlide key={index} className="transition-transform duration-300 bg-transparent">
+                                <div className="relative rounded-xl overflow-hidden group shadow-lg max-w-[90%] bg-transparent">
+                                    <div className="relative aspect-video p-2 bg-transparent">
+                                        <img src={slide.image} className="w-full h-full object-cover rounded-lg" />
 
                                         {/* Hover Overlay */}
                                         <div className="absolute inset-0 bg-gray-200/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
@@ -76,12 +89,12 @@ function CustomerSpotlight() {
                         ))}
                     </Swiper>
 
-                    {/* Navigation Buttons with useRef */}
-                    <button ref={prevRef} className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
-                        <ChevronLeft className="w-6 h-6 text-gray-800" />
+                    {/* Navigation Buttons */}
+                    <button ref={prevRef} className="absolute left-6 md:left-10 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full w-10 md:w-12 h-10 md:h-12 flex items-center justify-center shadow-md">
+                        <ChevronLeft className="w-6 md:w-7 h-6 md:h-7 text-gray-800" />
                     </button>
-                    <button ref={nextRef} className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
-                        <ChevronRight className="w-6 h-6 text-gray-800" />
+                    <button ref={nextRef} className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full w-10 md:w-12 h-10 md:h-12 flex items-center justify-center shadow-md">
+                        <ChevronRight className="w-6 md:w-7 h-6 md:h-7 text-gray-800" />
                     </button>
                 </div>
             </div>

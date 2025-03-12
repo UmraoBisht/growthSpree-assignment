@@ -1,7 +1,26 @@
-import { Glasses } from "lucide-react";
+"use client"; // If using Next.js
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import mediaThumbnail from "../assets/Components/Media+ Video thumbnail.png";
 
+const words = [
+    { text: "Engage", emoji: "🤩" },
+    { text: "Optimize", emoji: "😎" },
+    { text: "$$$", emoji: "💰" },
+];
+
 function Hero() {
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex((prevIndex) => (prevIndex + 1) % words.length);
+        }, 2000); // Change every 2 seconds
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <main className="max-w-[1400px] mx-auto px-6 sm:px-8 pt-20 sm:pt-28 text-center">
             {/* Heading */}
@@ -12,10 +31,34 @@ function Hero() {
 
             {/* Equation-like Section */}
             <div className="mt-12 sm:mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-3xl sm:text-5xl">
-                <span className="bg-[#FDF2F0] text-[#E97B5F] px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-medium">Media+</span>
+                {/* Background Gradient Box */}
+                <div className="inline-block rounded-2xl bg-gradient-to-r from-[#E97B5F] to-transparent">
+                    {/* Actual Text */}
+                    <div className="m-[1px] p-1.5 text-[#E97B5F] text-3xl sm:text-5xl font-medium bg-gray-100 rounded-2xl">
+                        Media+
+                    </div>
+                </div>
+
+
+
                 <span className="text-[#9A9A9A] font-light">=</span>
-                <span className="text-[#1A1A1A]">Optimize</span>
-                <Glasses className="w-10 h-10 sm:w-12 sm:h-12 text-[#FFD700]" />
+
+                {/* Animated Rotating Text with Emoji */}
+                <div className="relative w-40 h-[50px] sm:h-[60px] flex justify-center items-center overflow-hidden">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.5 }}
+                            className="absolute flex items-center gap-2"
+                        >
+                            <span className="text-[#1A1A1A] text-2xl font-bold">{words[index].text}</span>
+                            <span className="text-2xl">{words[index].emoji}</span>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
             </div>
 
             {/* Description */}
@@ -24,14 +67,17 @@ function Hero() {
             </p>
 
             {/* Button */}
-            <button className="mt-10 sm:mt-14 bg-[#E97B5F] hover:bg-[#D66D53] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-medium text-base sm:text-lg shadow-[0_2px_4px_rgba(233,123,95,0.3)] hover:shadow-[0_4px_8px_rgba(233,123,95,0.4)] transition-all duration-200">
+            <button
+                className="mt-10 sm:mt-14 bg-[#E97B5F] hover:bg-[#D66D53] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-medium text-base sm:text-lg shadow-[0_2px_4px_rgba(233,123,95,0.3)] hover:shadow-[0_4px_8px_rgba(233,123,95,0.4)] transition-all duration-200"
+                aria-label="Request a demo for Media+"
+            >
                 Request a Demo
             </button>
 
             {/* Video Thumbnail */}
             <div className="mt-10 sm:mt-14 flex justify-center">
                 <div className="bg-gradient-to-b from-[#b2e626] to-transparent rounded-3xl p-3 sm:p-4 shadow-2xl shadow-[#b3e629] max-w-[90%] sm:max-w-full">
-                    <img src={mediaThumbnail} alt="Hero" className="w-full rounded-3xl" />
+                    <img src={mediaThumbnail} alt="Hero" loading="lazy" className="w-full rounded-3xl" />
                 </div>
             </div>
         </main>
