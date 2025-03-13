@@ -2,21 +2,23 @@ import StatCard from "./StatCard";
 
 function Stat() {
     return (
-        <div className="min-h-screen bg-white py-16 px-4">
+        <div className="min-h-screen bg-white dark:bg-[#1A1A1A] py-16 px-4 transition-colors duration-300">
             <div className="max-w-4xl mx-auto">
+                {/* Header Section */}
                 <div className="text-center mb-16">
-                    <span className="text-[#FF7F57] text-sm font-medium">
+                    <span className="text-[#FF7F57] dark:text-[#FF9F7F] text-sm font-medium">
                         Elevate your video strategy
                     </span>
-                    <h1 className="text-4xl font-bold text-gray-900 mt-2 mb-3">
+                    <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mt-2 mb-3">
                         Seamless Video Management
                     </h1>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 dark:text-gray-400">
                         Transform how you engage with your audience using Media+
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6">
+                {/* Stats Grid */}
+                <div className="grid md:grid-cols-3 gap-6 place-items-center">
                     <StatCard
                         number="2.5X"
                         title="Lead Generation"
@@ -34,8 +36,9 @@ function Stat() {
                     />
                 </div>
 
+                {/* Call-to-Action Button */}
                 <div className="text-center mt-12">
-                    <button className="bg-[#FF7F57] text-white px-6 py-3 rounded-full hover:bg-[#ff6a3d] transition-colors">
+                    <button className="bg-[#FF7F57] dark:bg-[#E56A42] text-white px-6 py-3 rounded-full hover:bg-[#ff6a3d] dark:hover:bg-[#d6593a] transition-colors">
                         Request Demo
                     </button>
                 </div>

@@ -18,7 +18,7 @@ import Footer from './components/Footer'
 function App() {
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-gray-950 overflow-hidden">
       {/* Navigation */}
       <Navbar />
 

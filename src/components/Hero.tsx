@@ -24,7 +24,7 @@ function Hero() {
     return (
         <main className="max-w-[1400px] mx-auto px-6 sm:px-8 pt-20 sm:pt-28 text-center">
             {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-[64px] font-bold text-[#1A1A1A] max-w-5xl mx-auto leading-tight sm:leading-[1.2] tracking-[-0.02em]">
+            <h1 className="text-4xl sm:text-5xl md:text-[64px] font-bold text-[#1A1A1A] dark:text-white max-w-5xl mx-auto leading-tight sm:leading-[1.2] tracking-[-0.02em]">
                 Unlock video's full potential;{' '}
                 <span className="text-[#E97B5F]">half of marketers</span> haven't yet!
             </h1>
@@ -34,14 +34,12 @@ function Hero() {
                 {/* Background Gradient Box */}
                 <div className="inline-block rounded-2xl bg-gradient-to-r from-[#E97B5F] to-transparent">
                     {/* Actual Text */}
-                    <div className="m-[1px] p-1.5 text-[#E97B5F] text-3xl sm:text-5xl font-medium bg-gray-100 rounded-2xl">
+                    <div className="m-[1px] p-1.5 text-[#E97B5F] text-3xl sm:text-5xl font-medium bg-gray-100 dark:bg-gray-800 rounded-2xl">
                         Media+
                     </div>
                 </div>
 
-
-
-                <span className="text-[#9A9A9A] font-light">=</span>
+                <span className="text-[#9A9A9A] dark:text-gray-400 font-light">=</span>
 
                 {/* Animated Rotating Text with Emoji */}
                 <div className="relative w-40 h-[50px] sm:h-[60px] flex justify-center items-center overflow-hidden">
@@ -54,7 +52,7 @@ function Hero() {
                             transition={{ duration: 0.5 }}
                             className="absolute flex items-center gap-2"
                         >
-                            <span className="text-[#1A1A1A] text-2xl font-bold">{words[index].text}</span>
+                            <span className="text-[#1A1A1A] dark:text-white text-2xl font-bold">{words[index].text}</span>
                             <span className="text-2xl">{words[index].emoji}</span>
                         </motion.div>
                     </AnimatePresence>
@@ -62,7 +60,7 @@ function Hero() {
             </div>
 
             {/* Description */}
-            <p className="mt-8 sm:mt-10 text-lg sm:text-2xl text-[#4A4A4A] max-w-3xl mx-auto leading-relaxed">
+            <p className="mt-8 sm:mt-10 text-lg sm:text-2xl text-[#4A4A4A] dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
                 Netflix-style video discovery for your prospects that turns viewers into customers
             </p>
 
@@ -76,7 +74,7 @@ function Hero() {
 
             {/* Video Thumbnail */}
             <div className="mt-10 sm:mt-14 flex justify-center">
-                <div className="bg-gradient-to-b from-[#b2e626] to-transparent rounded-3xl p-3 sm:p-4 shadow-2xl shadow-[#b3e629] max-w-[90%] sm:max-w-full">
+                <div className="bg-gradient-to-b from-[#b2e626] dark:from-[#8dbb20] to-transparent rounded-3xl p-3 sm:p-4 shadow-2xl shadow-[#b3e629] dark:shadow-[#7aa91d] max-w-[90%] sm:max-w-full">
                     <img src={mediaThumbnail} alt="Hero" loading="lazy" className="w-full rounded-3xl" />
                 </div>
             </div>

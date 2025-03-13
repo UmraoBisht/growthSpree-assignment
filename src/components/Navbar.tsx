@@ -1,16 +1,41 @@
-import { ChevronDown, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isDark, setIsDark] = useState(false);
+
+    // Check user preference and apply dark mode on load
+    useEffect(() => {
+        const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const storedTheme = localStorage.getItem("theme");
+
+        if (storedTheme === "dark" || (!storedTheme && isDarkMode)) {
+            document.documentElement.classList.add("dark");
+            setIsDark(true);
+        }
+    }, []);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
+    // Toggle dark mode and store preference
+    const toggleDarkMode = () => {
+        if (document.documentElement.classList.contains("dark")) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+            setIsDark(false);
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+            setIsDark(true);
+        }
+    };
+
     return (
-        <nav className="px-6 sm:px-8 py-5 sticky bg-transparent top-0 z-50">
-            <div className="flex items-center justify-between bg-transparent backdrop-blur-lg border py-2.5 px-4 sm:px-6 rounded-3xl">
+        <nav className="px-6 sm:px-8 py-5 fixed w-full bg-transparent top-0 z-50">
+            <div className="flex items-center justify-between bg-transparent backdrop-blur-3xl border py-2.5 px-4 sm:px-6 rounded-3xl">
                 {/* Logo */}
                 <div className="text-2xl font-semibold">[]</div>
 
@@ -27,6 +52,11 @@ function Navbar() {
                             Plans
                         </a>
                     </div>
+
+                    {/* Dark Mode Toggle */}
+                    <button onClick={toggleDarkMode} className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-black dark:text-white transition-all">
+                        {isDark ? <Sun size={18} /> : <Moon size={18} />}
+                    </button>
 
                     {/* Auth Buttons */}
                     <div className="flex items-center gap-5">
@@ -57,7 +87,9 @@ function Navbar() {
                         <a href="#" className="text-[#4A4A4A] hover:text-[#1A1A1A] text-[16px] font-normal transition-colors duration-200">
                             Plans
                         </a>
+
                     </div>
+
 
                     <div className="mt-6 flex flex-col gap-4">
                         <button className="text-[#E97B5F] hover:text-[#D66D53] text-[16px] font-medium transition-colors duration-200">
@@ -67,6 +99,11 @@ function Navbar() {
                             Request a Demo
                         </button>
                     </div>
+
+                    {/* Dark Mode Toggle in Mobile Menu */}
+                    <button onClick={toggleDarkMode} className="mt-4 p-2 w-full flex justify-center items-center rounded-lg bg-gray-200 dark:bg-gray-800 text-black dark:text-white transition-all">
+                        {isDark ? "☀️ Light Mode" : "🌙 Dark Mode"}
+                    </button>
                 </div>
             )}
         </nav>

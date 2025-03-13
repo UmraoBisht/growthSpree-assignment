@@ -48,21 +48,21 @@ function FAQItem({ question, answer, isOpen, onClick }: {
   onClick: () => void;
 }) {
   return (
-    <div className="border-b border-gray-200 py-6">
+    <div className="border-b border-gray-200 dark:border-gray-700 py-6 transition-colors">
       <button
         className="flex w-full items-center justify-between text-left"
         onClick={onClick}
       >
-        <span className="text-lg font-medium text-gray-900">{question}</span>
+        <span className="text-lg font-medium text-gray-900 dark:text-gray-100">{question}</span>
         <Plus
-          className={`h-5 w-5 text-gray-500 transition-transform ${
+          className={`h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform ${
             isOpen ? 'rotate-45' : ''
           }`}
         />
       </button>
       {isOpen && (
         <div className="mt-3 pr-12">
-          <p className="text-gray-600">{answer}</p>
+          <p className="text-gray-600 dark:text-gray-300">{answer}</p>
         </div>
       )}
     </div>
@@ -73,13 +73,13 @@ function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16 px-4 sm:px-6 lg:px-8 transition-colors">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-base font-medium text-[#ff7a5c]">
+          <p className="text-base font-medium text-[#ff7a5c] dark:text-[#ff9a7d]">
             Our top-list of commonly asked questions
           </p>
-          <h2 className="mt-2 text-3xl font-bold text-gray-900">FAQs</h2>
+          <h2 className="mt-2 text-3xl font-bold text-gray-900 dark:text-gray-100">FAQs</h2>
         </div>
 
         <div className="mt-12">

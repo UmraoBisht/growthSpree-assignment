@@ -63,8 +63,10 @@ function WhyChooseMedia() {
     return (
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
-                <p className="text-orange-500 font-bold text-3xl sm:text-base mb-2">Why choose Media+?</p>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 max-w-4xl mx-auto leading-tight">
+                <p className="text-orange-500 dark:text-orange-400 font-bold text-3xl sm:text-base mb-2">
+                    Why choose Media+?
+                </p>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 dark:text-gray-100 max-w-4xl mx-auto leading-tight">
                     Media+ turns video engagement into customer conversions
                 </h1>
             </div>
@@ -75,14 +77,15 @@ function WhyChooseMedia() {
                     {data.map((item, index) => (
                         <div
                             key={index}
-                            className={`border border-gray-200 rounded-lg p-6 transition-all duration-300 relative ${!isMobile && selected === index ? "bg-gray-100 shadow-md" : ""
-                                }`}
+                            className={`border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-all duration-300 relative 
+                                ${!isMobile && selected === index ? "bg-gray-100 dark:bg-gray-800 shadow-md" : "dark:bg-gray-900"}
+                            `}
                             onClick={() => !isMobile && setSelected(index)}
                         >
                             <div className="flex justify-between items-center">
-                                <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                                <h3 className="font-semibold text-gray-900 dark:text-gray-200">{item.title}</h3>
                                 {!isMobile && (
-                                    <button className="text-gray-400 hover:text-gray-600">
+                                    <button className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                                         {selected === index ? <Minus size={20} /> : <Plus size={20} />}
                                     </button>
                                 )}
@@ -95,7 +98,7 @@ function WhyChooseMedia() {
                                 animate={{ height: selected === index || isMobile ? "auto" : 0, opacity: selected === index || isMobile ? 1 : 0 }}
                                 transition={{ duration: 0.4 }}
                             >
-                                <p className="text-gray-600 text-sm mt-2">{item.content}</p>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">{item.content}</p>
 
                                 {/* Show Image in Mobile Inside the Card */}
                                 {isMobile && (
@@ -115,7 +118,7 @@ function WhyChooseMedia() {
 
                 {/* Desktop: Auto-Switching Image - Fixed Position */}
                 {!isMobile && (
-                    <div className="rounded-xl p-6 md:p-10 relative h-[450px] flex items-center justify-center">
+                    <div className="rounded-xl p-6 md:p-10 relative h-[450px] flex items-center justify-center bg-gray-100 dark:bg-gray-800">
                         <motion.img
                             key={selected}
                             src={data[selected].image}

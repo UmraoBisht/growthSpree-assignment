@@ -2,6 +2,20 @@
 @import "swiper/css";
 @import "swiper/css/navigation";
 @import "swiper/css/pagination";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background-light: #ffffff;
+  --background-dark: #1a1a1a;
+}
+
+html {
+  background-color: var(--background-light);
+}
+
+html.dark {
+  background-color: var(--background-dark);
+}
 
 .swiper-pagination-bullet {
   width: 8px !important;

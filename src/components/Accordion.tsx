@@ -35,6 +35,7 @@ const data = [
         image: visual4,
     },
 ];
+
 export default function ImageAccordion() {
     const [selected, setSelected] = useState(1);
 
@@ -45,20 +46,23 @@ export default function ImageAccordion() {
                 {data.map((item, index) => (
                     <div
                         key={index}
-                        className={`border p-4 rounded-lg shadow-md cursor-pointer transition-all ${selected === index ? "bg-gray-100" : ""
-                            }`}
+                        className={`border p-4 rounded-lg shadow-md cursor-pointer transition-all 
+                        ${selected === index 
+                            ? "bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-500" 
+                            : "dark:bg-gray-800 dark:border-gray-600"
+                        }`}
                         onClick={() => setSelected(index)}
                     >
                         <div className="flex justify-between items-center">
-                            <h3 className="font-semibold text-lg">{item.title}</h3>
-                            <span>{selected === index ? "−" : "+"}</span>
+                            <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100">{item.title}</h3>
+                            <span className="text-gray-700 dark:text-gray-300">{selected === index ? "−" : "+"}</span>
                         </div>
                         {selected === index && (
                             <motion.p
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: "auto" }}
                                 transition={{ duration: 0.3 }}
-                                className="mt-2 text-gray-600"
+                                className="mt-2 text-gray-600 dark:text-gray-300"
                             >
                                 {item.content}
                             </motion.p>
@@ -67,8 +71,18 @@ export default function ImageAccordion() {
                 ))}
             </div>
 
-            
-
+            {/* Right Side - Image Display */}
+            <div className="w-full md:w-1/2 flex justify-center">
+                <motion.img
+                    key={selected}
+                    src={data[selected].image}
+                    alt="Feature Preview"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="w-full max-w-md md:max-w-lg rounded-lg shadow-lg"
+                />
+            </div>
         </div>
     );
 }
